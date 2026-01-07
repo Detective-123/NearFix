@@ -1,12 +1,7 @@
-<<<<<<< HEAD
-=======
-{% load static %}
->>>>>>> 3d52695e3ce24c9314b333393aba7a3b5a4628a1
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | NearFix</title>
     <style>
@@ -20,7 +15,7 @@
             --white: #ffffff;
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
@@ -144,11 +139,12 @@
             border-color: var(--primary);
             background: white;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            transform: scale(1.05);
         }
 
         .btn-primary-wide {
             width: 100%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
             color: white;
             border: none;
             padding: 1rem;
@@ -158,12 +154,19 @@
             font-size: 1rem;
             transition: var(--transition);
             margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
         }
 
         .btn-primary-wide:hover {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary-wide:active {
+            transform: translateY(-1px) scale(0.98);
         }
 
         .divider {
@@ -213,11 +216,23 @@
             cursor: pointer;
             transition: var(--transition);
             color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
         .btn-social:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
+            background: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            color: var(--primary);
+        }
+
+        .btn-social svg {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-social:hover svg {
+            transform: scale(1.2) rotate(5deg);
         }
 
         .icon-small {
@@ -228,7 +243,7 @@
         #otp-section {
             display: none;
             margin-top: 2rem;
-            animation: fadeInUp 0.5s;
+            animation: fadeInUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         /* --- Footer --- */
@@ -287,7 +302,7 @@
                     <input type="text" class="digit-input otp-input" maxlength="1">
                     <input type="text" class="digit-input otp-input" maxlength="1">
                 </div>
-                <button class="btn-primary-wide" style="background: #10b981;">Verify & Login</button>
+                <button class="btn-primary-wide" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);">Verify & Login</button>
             </div>
 
             <div class="divider">
@@ -357,115 +372,5 @@
         setupAutoTab('.phone-input');
         setupAutoTab('.otp-input');
     </script>
-=======
-    <title>Admin Login | Smart Admission</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background: linear-gradient(135deg, #020617, #0f172a);
-            min-height: 100vh;
-        }
-
-        .login-card {
-            background-color: #1c1e25ff;
-            border-radius: 14px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            border: 1px solid #1e293b;
-        }
-
-        .login-title {
-            color: #e5e7eb;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .text-muted {
-            color: #94a3b8 !important;
-        }
-
-        .form-control {
-            background-color: #1a1d29ff;
-            border: 1px solid #334155;
-            color: #e5e7eb;
-        }
-
-        .form-control:focus {
-            background-color: #1a1d29ff;
-            color: #e5e7eb;
-            border-color: #3b82f6;
-            box-shadow: none;
-        }
-
-        .btn-primary {
-            background-color: #3b82f6;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #2563eb;
-        }
-
-        .alert-danger {
-            background-color: #450a0a;
-            color: #fecaca;
-            border: 1px solid #7f1d1d;
-        }
-    </style>
-</head>
-
-<body class="d-flex align-items-center justify-content-center">
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5 col-lg-4">
-            <div class="card login-card p-4">
-                <div class="text-center mb-4">
-                    <h3 class="login-title">Login</h3>
-                    <p class="text-muted mb-0">Nearfix</p>
-                </div>
-
-                {% if form.errors %}
-                    <div class="alert alert-danger text-center">
-                        Invalid username or password
-                    </div>
-                {% endif %}
-
-                <form method="post" action="{{ app_path }}">
-                    {% csrf_token %}
-
-                    <div class="mb-3">
-                        <label class="form-label text-light">Contact No</label>
-                        <input type="text" name="username" class="form-control" required autofocus>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label text-light">Password</label>
-                        <input type="password" name="password" class="form-control" required>
-                    </div>
-
-                    <input type="hidden" name="next" value="{{ next }}">
-
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            Sign In
-                        </button>
-                    </div>
-                </form>
-
-                <div class="text-center mt-4">
-                    <small class="text-muted">
-                        © {{ now|date:"Y" }} Nearfix
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
->>>>>>> 3d52695e3ce24c9314b333393aba7a3b5a4628a1
 </body>
 </html>
