@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | NearFix</title>
+    <style>
+        /* --- Design Tokens & Variables --- */
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-light: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* --- Global Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+
+        /* --- Keyframe Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Navbar --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        /* --- Login Section --- */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 2rem;
+            box-shadow: var(--hover-shadow);
+            width: 100%;
+            max-width: 550px;
+            animation: fadeInUp 0.6s ease-out;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .digit-boxes {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .digit-input {
+            width: 38px;
+            height: 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 700;
+            outline: none;
+            transition: var(--transition);
+            background: #f8fafc;
+        }
+
+        .digit-input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-primary-wide {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .btn-primary-wide:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .divider {
+            margin: 2rem 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #e2e8f0;
+            top: 50%;
+            left: 0;
+            z-index: 1;
+        }
+
+        .divider span {
+            position: relative;
+            z-index: 2;
+            background: white;
+            padding: 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 0.85rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-main);
+        }
+
+        .btn-social:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        .icon-small {
+            width: 20px;
+            height: 20px;
+        }
+
+        #otp-section {
+            display: none;
+            margin-top: 2rem;
+            animation: fadeInUp 0.5s;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .login-card { padding: 2rem 1rem; }
+            .digit-input { width: 30px; height: 45px; font-size: 0.9rem; }
+            .digit-boxes { gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">NearFix</a>
+        </div>
+    </nav>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2>Welcome Back</h2>
+            <p>Login to book your next repair service.</p>
+
+            <!-- Phone Number Input (10 Boxes) -->
+            <div class="input-group" id="phone-container">
+                <label class="input-label">Enter 10-Digit Mobile Number</label>
+                <div class="digit-boxes">
+                    <input type="text" class="digit-input phone-input" maxlength="1" placeholder="9">
+                    <input type="text" class="digit-input phone-input" maxlength="1" placeholder="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                    <input type="text" class="digit-input phone-input" maxlength="1">
+                </div>
+                <button class="btn-primary-wide" onclick="handleSendOTP()">Send OTP</button>
+            </div>
+
+            <!-- OTP Input (4 Boxes) -->
+            <div id="otp-section">
+                <label class="input-label">Enter 4-Digit Security Code</label>
+                <div class="digit-boxes">
+                    <input type="text" class="digit-input otp-input" maxlength="1">
+                    <input type="text" class="digit-input otp-input" maxlength="1">
+                    <input type="text" class="digit-input otp-input" maxlength="1">
+                    <input type="text" class="digit-input otp-input" maxlength="1">
+                </div>
+                <button class="btn-primary-wide" style="background: #10b981;">Verify & Login</button>
+            </div>
+
+            <div class="divider">
+                <span>OR</span>
+            </div>
+
+            <!-- Social Logins -->
+            <div class="social-buttons">
+                <button class="btn-social">
+                    <svg class="icon-small" viewBox="0 0 48 48">
+                        <path fill="#EA4335" d="M24,9.5c3.54,0,6.71,1.22,9.21,3.6l6.85-6.85C35.9,2.38,30.47,0,24,0C14.62,0,6.51,5.38,2.56,13.22l7.98,6.19 C12.43,13.72,17.74,9.5,24,9.5z"/>
+                        <path fill="#4285F4" d="M46.98,24.55c0-1.57-0.15-3.09-0.38-4.55H24v9.02h12.94c-0.58,2.96-2.26,5.48-4.78,7.18l7.73,6c4.51-4.18,7.09-10.36,7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53,28.59c-0.48-1.45-0.76-2.99-0.76-4.59s0.27-3.14,0.76-4.59l-7.98-6.19C0.92,16.46,0,20.12,0,24 c0,3.88,0.92,7.54,2.56,10.78L10.53,28.59z"/>
+                        <path fill="#34A853" d="M24,48c6.48,0,11.93-2.13,15.89-5.81l-7.73-6c-2.15,1.45-4.92,2.3-8.16,2.3c-6.26,0-11.57-4.22-13.47-9.91 l-7.98,6.19C6.51,42.62,14.62,48,24,48z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+                <button class="btn-social">
+                    <svg class="icon-small" viewBox="0 0 24 24">
+                        <path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    Continue with Facebook
+                </button>
+            </div>
+
+            <p style="margin-top: 2.5rem; font-size: 0.85rem;">
+                New to NearFix? <a href="#" style="color: var(--primary); font-weight: 700;">Create Account</a>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 NearFix Platform. Your trusted local partner.
+    </footer>
+
+    <script>
+        function handleSendOTP() {
+            document.getElementById('otp-section').style.display = 'block';
+            document.getElementById('phone-container').style.opacity = '0.5';
+            document.getElementById('phone-container').style.pointerEvents = 'none';
+            const firstOtp = document.querySelector('.otp-input');
+            if(firstOtp) firstOtp.focus();
+        }
+
+        // Auto-tabbing logic for multi-box inputs
+        function setupAutoTab(className) {
+            const inputs = document.querySelectorAll(className);
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (!/^\d*$/.test(value)) {
+                        e.target.value = '';
+                        return;
+                    }
+                    if (value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        setupAutoTab('.phone-input');
+        setupAutoTab('.otp-input');
+    </script>
+</body>
+</html>
