@@ -125,4 +125,3 @@ STATICFILES_DIRS =  [
 ]
 
 # models
-AUTH_USER_MODEL = "NearFixApp.User"
