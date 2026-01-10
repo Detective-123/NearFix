@@ -70,7 +70,9 @@ def home(request):
      if phone:
         profile = userprofile.objects.filter(phone=phone).first()  # fetch profile
         return render(request, "home.html", {"profile": profile})
-    
+     else:
+        # If no phone in session, redirect to login
+        return redirect("login")
 
 def register(request):
      phone = request.session.get("phone")
@@ -91,3 +93,6 @@ def register(request):
      return render(request, "register.html")
 def profile(request):
     return render(request,profile.html)
+def logout(request):
+        request.session.flush()  # removes all session data (phone, OTP, profile_completed)
+        return redirect('login')
