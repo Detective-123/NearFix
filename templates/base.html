@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NearFix | Premium Local Repair Experts</title>
+    <title>{%block title%}{%endblock%}earFix | Premium Local Repair Experts</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -311,7 +311,6 @@
             gap: 2.5rem;
         }
 
-        /* Adjusted Card to act as an anchor */
         .card {
             background: white;
             padding: 3rem 2rem;
@@ -321,9 +320,6 @@
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            display: block;
-            text-decoration: none;
-            color: inherit;
         }
 
         .card:hover {
@@ -422,7 +418,7 @@
             
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
-                <li><a href="{% url 'service' %}">Services</a></li>
+                <li><a href="#services">Services</a></li>
                 <li><a href="#works">Process</a></li>
                 <li><a href="#join">Expert Portal</a></li>
             </ul>
@@ -458,176 +454,5 @@
             </div>
         </div>
     </nav>
-
-    <main id="main-content">
-        <section class="hero" id="home">
-            <div class="container hero-content">
-                <h1 class="animate-up">Find Trusted Repair Services Near You</h1>
-                <p class="animate-up" style="animation-delay: 0.1s;">Elite local specialists verified for quality and speed. Ready when you are.</p>
-                
-                <div class="location-box animate-up" style="animation-delay: 0.2s;">
-                    <div class="location-header">
-                        <h3>Where are you located?</h3>
-                        <button class="detect-btn" onclick="detectLocation()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3m10-10h-3M5 12H2"/></svg>
-                            Auto-detect
-                        </button>
-                    </div>
-
-                    <div class="location-tabs">
-                        <input type="radio" name="city" id="city-mumbai" checked>
-                        <label for="city-mumbai">Mumbai</label>
-
-                        <input type="radio" name="city" id="city-delhi">
-                        <label for="city-delhi">Delhi</label>
-
-                        <input type="radio" name="city" id="city-bangalore">
-                        <label for="city-bangalore">Bangalore</label>
-
-                        <input type="radio" name="city" id="city-hyderabad">
-                        <label for="city-hyderabad">Hyderabad</label>
-
-                        <input type="radio" name="city" id="city-pune">
-                        <label for="city-pune">Pune</label>
-
-                        <input type="radio" name="city" id="city-kolkata">
-                        <label for="city-kolkata">Kolkata</label>
-                    </div>
-
-                    <div id="location-status" style="margin-top: 1.5rem; font-weight: 600; font-size: 0.9rem; color: var(--primary);"></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="services">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Precision Services</h2>
-                    <p>Curated experts specializing in specific repair domains.</p>
-                </div>
-                
-                <div class="grid">
-                    <!-- Smartphones Card linking to service.html via Django URL -->
-                    <a href="{% url 'service' %}" class="card">
-                        <div class="service-icon-wrapper">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-                        </div>
-                        <h3>Smartphones</h3>
-                        <p>Expert microsoldering, glass replacement, and logical board repairs for all flagship devices.</p>
-                    </a>
-
-                    <!-- Laptop Repair Card linking to service.html via Django URL -->
-                    <a href="{% url 'service' %}" class="card">
-                        <div class="service-icon-wrapper">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>
-                        </div>
-                        <h3>Laptop Repair</h3>
-                        <p>Hardware upgrades, keyboard replacements, and OS recovery for MacBooks and high-end PCs.</p>
-                    </a>
-
-                    <!-- Appliances Card linking to service.html via Django URL -->
-                    <a href="{% url 'service' %}" class="card">
-                        <div class="service-icon-wrapper">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 15h.01"/><path d="M12 18h.01"/><path d="M8 7h8"/></svg>
-                        </div>
-                        <h3>Appliances</h3>
-                        <p>On-site servicing for refrigerators, washing machines, microwaves, and other major home assets.</p>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="how-it-works" id="works">
-            <div class="container">
-                <h2>The NearFix Protocol</h2>
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4rem;">
-                    <div class="step-card">
-                        <div class="step-number">01</div>
-                        <h4 style="font-size: 1.2rem; margin-bottom: 1rem;">Diagnosis</h4>
-                        <p style="opacity: 0.7;">Select your issue and get an instant cost estimation.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">02</div>
-                        <h4 style="font-size: 1.2rem; margin-bottom: 1rem;">Dispatch</h4>
-                        <p style="opacity: 0.7;">A certified master technician is assigned to your ticket.</p>
-                    </div>
-                    <div class="step-card">
-                        <div class="step-number">03</div>
-                        <h4 style="font-size: 1.2rem; margin-bottom: 1rem;">Resolution</h4>
-                        <p style="opacity: 0.7;">Get It Fixed</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-grid">
-            <div>
-                <a href="/" class="footer-logo">Near<span>Fix</span></a>
-                <p>The standard for local high-end repair services. Quality-checked, neighbor-approved.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Platform</h4>
-                <ul>
-                    <li><a href="#">Network</a></li>
-                    <li><a href="#">Join Experts</a></li>
-                    <li><a href="#">Corporate</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Social</h4>
-                <ul>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">LinkedIn</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Contact</h4>
-                <p>nearfix@.com</p>
-                <p style="font-weight: 800; font-size: 1.2rem; margin-top: 10px; color: var(--bg-dark);">1800-NEAR-FIX</p>
-            </div>
-        </div>
-        <div class="container" style="border-top: 1px solid #f1f5f9; margin-top: 4rem; padding-top: 2rem; text-align: center; font-size: 0.85rem;">
-            &copy; 2026 NearFix Digital Solutions. Crafted for excellence.
-        </div>
-    </footer>
-
-    <script>
-        function detectLocation() {
-            const status = document.getElementById('location-status');
-            status.textContent = "Establishing satellite connection...";
-            
-            if (!navigator.geolocation) {
-                status.textContent = "Browser incompatible with auto-detection.";
-            } else {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        setTimeout(() => {
-                            status.textContent = "✓ Success: Pune Region Sync Verified (Mock)";
-                            const puneRadio = document.getElementById('city-pune');
-                            if(puneRadio) puneRadio.checked = true;
-                        }, 1200);
-                    },
-                    (error) => {
-                        status.textContent = "Access denied. Please select city manually.";
-                    }
-                );
-            }
-        }
-
-        // Intersection Observer for Scroll Animations
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-up');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card, .how-it-works, .section-header').forEach(el => observer.observe(el));
-    </script>
-</body>
-</html>
+    {% block body%}{% endblock %}
+   

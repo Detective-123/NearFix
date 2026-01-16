@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% block title %}NearFix | Select Your Service{% endblock %}
+
+{% block body %}
+<!-- Page Specific Styles -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --primary: #10b981;
+        --primary-dark: #059669;
+        --primary-glow: rgba(16, 185, 129, 0.2);
+        --bg-light: #f8fafc;
+        --text-heading: #1e293b;
+        --text-body: #64748b;
+        --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    header { text-align: center; margin-bottom: 3rem; }
+    h1 { font-family: 'Space Grotesk', sans-serif; color: var(--text-heading); font-size: 2.5rem; margin-bottom: 0.5rem; }
+    
+    .selection-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 32px;
+        box-shadow: 0 20px 40px -15px rgba(0,0,0,0.05);
+        border: 1px solid #e2e8f0;
+    }
+
+    .step-label {
+        display: block;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+    }
+
+    .form-section { margin-bottom: 3rem; }
+    .form-section:last-child { margin-bottom: 0; }
+
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+
+    .option-item { position: relative; }
+    .option-item input { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+
+    .option-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: #fff;
+        border: 2px solid #f1f5f9;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+        height: 100%;
+    }
+
+    .option-label svg { width: 32px; height: 32px; margin-bottom: 12px; color: #94a3b8; transition: var(--transition); }
+    .option-label span { font-weight: 700; color: var(--text-heading); font-size: 0.95rem; }
+
+    .option-item:hover .option-label {
+        border-color: #e2e8f0;
+        transform: translateY(-2px);
+    }
+
+    .option-item input:checked + .option-label {
+        border-color: var(--primary);
+        background: var(--primary-glow);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px -5px var(--primary-glow);
+    }
+
+    .option-item input:checked + .option-label svg { color: var(--primary); }
+    
+    .option-item input:focus-visible + .option-label {
+        outline: 2px solid var(--primary);
+        outline-offset: 2px;
+    }
+
+    .sub-section {
+        display: none;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px dashed #e2e8f0;
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .type-toggle {
+        display: flex;
+        background: #f1f5f9;
+        padding: 6px;
+        border-radius: 100px;
+        gap: 4px;
+    }
+
+    .type-toggle label {
+        flex: 1;
+        text-align: center;
+        border-radius: 100px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        position: relative;
+    }
+
+    .type-toggle input { display: none; }
+    
+    .type-toggle span {
+        display: block;
+        padding: 12px;
+        border-radius: 100px;
+        transition: var(--transition);
+    }
+
+    .type-toggle input:checked + span {
+        background: white;
+        color: var(--primary);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .submit-btn {
+        width: 100%;
+        background: #0f172a;
+        color: white;
+        border: none;
+        padding: 1.25rem;
+        border-radius: 16px;
+        font-weight: 800;
+        font-size: 1.1rem;
+        cursor: pointer;
+        margin-top: 2rem;
+        transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+        background: var(--primary);
+        box-shadow: 0 10px 25px var(--primary-glow);
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        .options-grid { grid-template-columns: 1fr 1fr; }
+        .selection-card { padding: 1.5rem; }
+        h1 { font-size: 2rem; }
+    }
+</style>
+<div class="container">
+    <header>
+        <h1>Service Finder</h1>
+        <p>Tell us what needs fixing and we'll find the right expert.</p>
+    </header>
+
+    <form action="/search-results/" method="GET" class="selection-card" id="service-form">
+        <!-- STEP 1: Core Category -->
+        <div class="form-section">
+            <span class="step-label">Step 01: Select Category</span>
+            <div class="options-grid">
+                <label class="option-item">
+                    <input type="radio" name="category" value="mobile" onclick="updateUI('mobile')" required>
+                    <div class="option-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2" stroke-width="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2"/></svg>
+                        <span>Mobile</span>
+                    </div>
+                </label>
+
+                <label class="option-item">
+                    <input type="radio" name="category" value="laptop" onclick="updateUI('laptop')">
+                    <div class="option-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/></svg>
+                        <span>Laptop</span>
+                    </div>
+                </label>
+
+                <label class="option-item">
+                    <input type="radio" name="category" value="appliance" id="cat-appliance" onclick="updateUI('appliance')">
+                    <div class="option-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M12 15h.01"/><path d="M8 7h8"/></svg>
+                        <span>Appliance</span>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 2: Sub-category (Mobile) -->
+        <div id="mobile-sub-section" class="form-section sub-section">
+            <span class="step-label">Step 02: What's the issue?</span>
+            <div class="options-grid">
+                <label class="option-item"><input type="radio" name="subcategory" value="screen"><div class="option-label"><span>Screen Repair</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="battery"><div class="option-label"><span>Battery</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="charging"><div class="option-label"><span>Charging</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="software"><div class="option-label"><span>Software</span></div></label>
+            </div>
+        </div>
+
+        <!-- STEP 2: Sub-category (Laptop) -->
+        <div id="laptop-sub-section" class="form-section sub-section">
+            <span class="step-label">Step 02: Laptop Service</span>
+            <div class="options-grid">
+                <label class="option-item"><input type="radio" name="subcategory" value="screen-laptop"><div class="option-label"><span>Display</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="keyboard"><div class="option-label"><span>Keyboard</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="performance"><div class="option-label"><span>Speed Up</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="liquid-damage"><div class="option-label"><span>Water Damage</span></div></label>
+            </div>
+        </div>
+
+        <!-- STEP 2: Sub-category (Appliance) -->
+        <div id="appliance-sub-section" class="form-section sub-section">
+            <span class="step-label">Step 02: What kind of Appliance?</span>
+            <div class="options-grid">
+                <label class="option-item"><input type="radio" name="subcategory" value="tv"><div class="option-label"><span>Television</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="washing-machine"><div class="option-label"><span>Washing Machine</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="refrigerator"><div class="option-label"><span>Refrigerator</span></div></label>
+                <label class="option-item"><input type="radio" name="subcategory" value="microwave"><div class="option-label"><span>Microwave</span></div></label>
+            </div>
+        </div>
+
+        <!-- STEP 3: Service Type -->
+        <div class="form-section">
+            <span class="step-label">Final Step: Provider Type</span>
+            <div class="type-toggle">
+                <label>
+                    <input type="radio" name="provider_type" value="authorized">
+                    <span>Authorized</span>
+                </label>
+                <label>
+                    <input type="radio" name="provider_type" value="unauthorized">
+                    <span>Local Expert</span>
+                </label>
+                <label>
+                    <input type="radio" name="provider_type" value="both" checked>
+                    <span>Both</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Find Repair Experts</button>
+    </form>
+</div>
+<script>
+    function updateUI(category) {
+        const sections = {
+            'mobile': document.getElementById('mobile-sub-section'),
+            'laptop': document.getElementById('laptop-sub-section'),
+            'appliance': document.getElementById('appliance-sub-section')
+        };
+
+        Object.keys(sections).forEach(key => {
+            const section = sections[key];
+            const inputs = section.querySelectorAll('input');
+
+            if (key === category) {
+                section.style.display = 'block';
+                inputs.forEach(input => input.required = true);
+            } else {
+                section.style.display = 'none';
+                inputs.forEach(input => {
+                    input.required = false;
+                    input.checked = false;
+                });
+            }
+        });
+    }
+</script>
+{% endblock %}

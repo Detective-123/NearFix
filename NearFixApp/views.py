@@ -122,3 +122,7 @@ def profile(request):
 def logout(request):
         request.session.flush()  # removes all session data (phone, OTP, profile_completed)
         return redirect('login')
+def base(request):
+    return render(request,'base.html')
+def service(request):
+    return render(request,"service.html")
